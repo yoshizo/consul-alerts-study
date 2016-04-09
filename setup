@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+: ${CONSUL_ALERTS_HOME:=/home/vagrant/consul-alerts}
+: ${CONSUL_ALERTS_BIN_DIR:=${CONSUL_ALERTS_HOME}/bin}
+
+CONSUL_ALERTS_VERSION=0.3.2
+
+# Setup
+mkdir -p ${CONSUL_ALERTS_HOME} ${CONSUL_ALERTS_BIN_DIR}
+
+# Download & Installation
+curl \
+  --location \
+  --silent \
+  --show-error \
+  --progress \
+  --fail \
+  https://github.com/AcalephStorage/consul-alerts/releases/download/v${CONSUL_ALERTS_VERSION}/consul-alerts-${CONSUL_ALERTS_VERSION}-linux-amd64.tar \
+    | tar xv -C ${CONSUL_ALERTS_BIN_DIR}
+
+# Test
+${CONSUL_ALERTS_BIN_DIR}/consul-alerts --version | grep -q ${CONSUL_ALERTS_VERSION}
+echo Installation Success.
