@@ -2,7 +2,7 @@
 
 set -e
 
-: ${CONSUL_ALERTS_HOME:=/home/vagrant/consul-alerts}
+: ${CONSUL_ALERTS_HOME:=$(cd $(dirname $0) && pwd)}
 : ${CONSUL_ALERTS_BIN_DIR:=${CONSUL_ALERTS_HOME}/bin}
 
 CONSUL_ALERTS_VERSION=0.3.2
