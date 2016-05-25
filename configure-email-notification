@@ -20,6 +20,7 @@ fi
 CONSUL_NOTIFICATION_LOG=${CONSUL_ALERTS_LOG_DIR}/consul-notification.log
 
 CONSUL_ALERTS_EMAIL_CONFIG_API=http://localhost:8500/v1/kv/consul-alerts/config/notifiers/email
+CONSUL_ALERTS_CHECK_CONFIG_API=http://localhost:8500/v1/kv/consul-alerts/config/checks
 CONSUL_ALERTS_LOG_CONFIG_API=http://localhost:8500/v1/kv/consul-alerts/config/notifiers/log
 
 curl -X PUT -d "true"            ${CONSUL_ALERTS_EMAIL_CONFIG_API}/enabled
@@ -29,5 +30,7 @@ curl -X PUT -d "${RECEIVERS}"    ${CONSUL_ALERTS_EMAIL_CONFIG_API}/receivers
 curl -X PUT -d "${SMTP_URL}"     ${CONSUL_ALERTS_EMAIL_CONFIG_API}/url
 curl -X PUT -d "${SMTP_PORT}"    ${CONSUL_ALERTS_EMAIL_CONFIG_API}/port
 curl -X PUT -d "${SENDER_EMAIL}" ${CONSUL_ALERTS_EMAIL_CONFIG_API}/sernder-email
+
+curl -X PUT -d 30 ${CONSUL_ALERTS_CHECK_CONFIG_API}/change-threshold
 
 curl -X PUT -d "${CONSUL_NOTIFICATION_LOG}" ${CONSUL_ALERTS_LOG_CONFIG_API}/path
